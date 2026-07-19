@@ -1,6 +1,10 @@
 # Build stage: compile TypeScript -> dist/. Uses devDependencies (typescript), discarded after.
 FROM node:24-slim AS build
 WORKDIR /app
+# @swisseph/node has no prebuilt binary for this exact platform/Node combo, so npm falls back to
+# compiling it from source via node-gyp - which needs Python + a C/C++ toolchain to do so.
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
+    && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY tsconfig.json ./
@@ -14,6 +18,8 @@ RUN npm run build
 FROM node:24-slim
 WORKDIR /app
 ENV NODE_ENV=production
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
+    && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist

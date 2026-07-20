@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     maxHeight: "75%",
   },
   title: { fontSize: 20, fontWeight: "700" },
-  subtitle: { fontSize: 13, color: "#ccc9c9ff", marginTop: 4, marginBottom: 16 },
+  subtitle: { fontSize: 13, color: "#444", marginTop: 4, marginBottom: 16 },
   closeButton: {
     marginTop: 16,
     backgroundColor: "#5b2a86",

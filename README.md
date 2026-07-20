@@ -103,6 +103,11 @@ Both are pure functions of their input — nothing is written to disk or a datab
   use itself, just something to stay compliant with.
 - **Auspicious-timing lookahead (muhurta)** is not built yet — deferred to a future phase.
 
+## Privacy policy
+
+See [`PRIVACY.md`](./PRIVACY.md) — required as a public URL for app store submission
+(`github.com/ameralday/astrology/blob/main/PRIVACY.md` once pushed).
+
 ## Deploying the backend (Google Cloud Run)
 
 The backend is a stateless container - no database, no persistent volume needed. `server/`

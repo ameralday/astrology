@@ -549,7 +549,7 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 3,
-    backgroundColor: "#c07f00",
+    backgroundColor: "#c06d00ec",
     marginTop: 4,
   },
   weekLegend: { fontSize: 10, color: "#999", marginTop: 10, textAlign: "center" },
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
   taraSummary: { fontSize: 13, color: "#444", marginTop: 8, lineHeight: 19 },
   chandrashtamaWarning: {
     fontSize: 12,
-    color: "#8a5a00",
+    color: "#8a3300ff",
     marginTop: 10,
     backgroundColor: "#fdf3dd",
     borderRadius: 8,
@@ -575,5 +575,5 @@ const styles = StyleSheet.create({
   },
   primaryButtonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
   textButton: { marginTop: 16, alignItems: "center" },
-  textButtonLabel: { color: "#999", fontSize: 13 },
+  textButtonLabel: { color: "#252525ff", fontSize: 13 },
 });

@@ -112,35 +112,37 @@ export default function ChartScreen() {
           </InfoModal>
         )}
 
-        <Text style={styles.sectionHeading}>Planets</Text>
-        <View style={styles.table}>
-          <View style={[styles.row, styles.headerRow]}>
-            <Text style={[styles.cell, styles.headerCell, { flex: 1.1 }]}>Planet</Text>
-            <Text style={[styles.cell, styles.headerCell, { flex: 1.3 }]}>Sign</Text>
-            <Text style={[styles.cell, styles.headerCell, { flex: 1.6 }]}>Nakshatra</Text>
-            <Text style={[styles.cell, styles.headerCell, { flex: 0.6 }]}>Pada</Text>
-            <Text style={[styles.cell, styles.headerCell, { flex: 0.6 }]}>House</Text>
+        <View style={styles.card}>
+          <Text style={styles.cardHeading}>Planets</Text>
+          <View style={styles.table}>
+            <View style={[styles.row, styles.headerRow]}>
+              <Text style={[styles.cell, styles.headerCell, { flex: 1.1 }]}>Planet</Text>
+              <Text style={[styles.cell, styles.headerCell, { flex: 1.3 }]}>Sign</Text>
+              <Text style={[styles.cell, styles.headerCell, { flex: 1.6 }]}>Nakshatra</Text>
+              <Text style={[styles.cell, styles.headerCell, { flex: 0.6 }]}>Pada</Text>
+              <Text style={[styles.cell, styles.headerCell, { flex: 0.6 }]}>House</Text>
+            </View>
+            {chart.planets.map((p) => (
+              <Pressable
+                key={p.planet}
+                style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+                onPress={() => setSelectedPlanet(p.planet)}
+              >
+                <Text style={[styles.cell, { flex: 1.1 }]}>
+                  {p.planet}
+                  {p.isRetrograde ? " (R)" : ""}
+                </Text>
+                <Text style={[styles.cell, { flex: 1.3 }]}>
+                  {p.rashi} {p.degreeInSign.toFixed(1)}°
+                </Text>
+                <Text style={[styles.cell, { flex: 1.6 }]}>{p.nakshatra}</Text>
+                <Text style={[styles.cell, { flex: 0.6 }]}>{p.pada}</Text>
+                <Text style={[styles.cell, { flex: 0.6 }]}>{p.house}</Text>
+              </Pressable>
+            ))}
           </View>
-          {chart.planets.map((p) => (
-            <Pressable
-              key={p.planet}
-              style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
-              onPress={() => setSelectedPlanet(p.planet)}
-            >
-              <Text style={[styles.cell, { flex: 1.1 }]}>
-                {p.planet}
-                {p.isRetrograde ? " (R)" : ""}
-              </Text>
-              <Text style={[styles.cell, { flex: 1.3 }]}>
-                {p.rashi} {p.degreeInSign.toFixed(1)}°
-              </Text>
-              <Text style={[styles.cell, { flex: 1.6 }]}>{p.nakshatra}</Text>
-              <Text style={[styles.cell, { flex: 0.6 }]}>{p.pada}</Text>
-              <Text style={[styles.cell, { flex: 0.6 }]}>{p.house}</Text>
-            </Pressable>
-          ))}
+          <Text style={styles.tableHint}>Tap a planet for more information</Text>
         </View>
-        <Text style={styles.tableHint}>Tap a planet for more information</Text>
 
         {selectedPlanet &&
           (() => {
@@ -175,20 +177,22 @@ export default function ChartScreen() {
             );
           })()}
 
-        <Text style={styles.sectionHeading}>Houses (whole sign)</Text>
-        <View style={styles.table}>
-          {chart.houses.map((rashi, i) => (
-            <Pressable
-              key={i}
-              style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
-              onPress={() => setSelectedHouse(i + 1)}
-            >
-              <Text style={[styles.cell, { flex: 0.5 }]}>{i + 1}</Text>
-              <Text style={[styles.cell, { flex: 2 }]}>{rashi}</Text>
-            </Pressable>
-          ))}
+        <View style={styles.card}>
+          <Text style={styles.cardHeading}>Houses (whole sign)</Text>
+          <View style={styles.table}>
+            {chart.houses.map((rashi, i) => (
+              <Pressable
+                key={i}
+                style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+                onPress={() => setSelectedHouse(i + 1)}
+              >
+                <Text style={[styles.cell, { flex: 0.5 }]}>{i + 1}</Text>
+                <Text style={[styles.cell, { flex: 2 }]}>{rashi}</Text>
+              </Pressable>
+            ))}
+          </View>
+          <Text style={styles.tableHint}>Tap a house for more information</Text>
         </View>
-        <Text style={[styles.tableHint, { marginBottom: 24 }]}>Tap a house for more information</Text>
 
         {selectedHouse &&
           (() => {
@@ -215,30 +219,30 @@ export default function ChartScreen() {
             );
           })()}
 
-        <Text style={styles.sectionHeading}>Dasha periods</Text>
-        <View style={styles.table}>
-          {chart.mahadashas.map((m, i) => {
-            const current = isCurrentPeriod(m);
-            return (
-              <Pressable
-                key={i}
-                style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
-                onPress={() => setSelectedMahadasha(m)}
-              >
-                <Text style={[styles.cell, styles.dashaPlanetCell, current && styles.currentText]}>
-                  {m.planet}
-                  {current ? " (current)" : ""}
-                </Text>
-                <Text style={[styles.cell, styles.dashaDateCell]}>
-                  {formatDashaDate(m.startDate)} – {formatDashaDate(m.endDate)}
-                </Text>
-              </Pressable>
-            );
-          })}
+        <View style={styles.card}>
+          <Text style={styles.cardHeading}>Dasha periods</Text>
+          <View style={styles.table}>
+            {chart.mahadashas.map((m, i) => {
+              const current = isCurrentPeriod(m);
+              return (
+                <Pressable
+                  key={i}
+                  style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+                  onPress={() => setSelectedMahadasha(m)}
+                >
+                  <Text style={[styles.cell, styles.dashaPlanetCell, current && styles.currentText]}>
+                    {m.planet}
+                    {current ? " (current)" : ""}
+                  </Text>
+                  <Text style={[styles.cell, styles.dashaDateCell]}>
+                    {formatDashaDate(m.startDate)} – {formatDashaDate(m.endDate)}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={styles.tableHint}>Tap a period for more information · covers ~120 years from birth</Text>
         </View>
-        <Text style={[styles.tableHint, { marginBottom: 24 }]}>
-          Tap a period for more information · covers ~120 years from birth
-        </Text>
 
         {selectedMahadasha &&
           (() => {
@@ -390,9 +394,9 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: "700" },
   subtitle: { fontSize: 13, color: "#dbd8d8ff", marginTop: 4, marginBottom: 20 },
   card: {
-    backgroundColor: "#d8d4dbff",
-    borderRadius: 10,
-    padding: 14,
+    backgroundColor: "#f5effa",
+    borderRadius: 12,
+    padding: 16,
     marginBottom: 24,
   },
   cardPressed: { opacity: 0.7 },
@@ -406,12 +410,12 @@ const styles = StyleSheet.create({
   infoFactValue: { fontSize: 14, fontWeight: "700", marginTop: 2 },
   infoBody: { fontSize: 14, color: "#333", lineHeight: 21 },
   infoBodySpaced: { marginTop: 12 },
-  sectionHeading: { fontSize: 15, fontWeight: "700", marginBottom: 10 },
-  table: { borderWidth: 1, borderColor: "#b8b6b6b6", borderRadius: 8, overflow: "hidden" },
-  tableHint: { fontSize: 11, color: "#474747ff", marginTop: 6, marginBottom: 24 },
-  row: { flexDirection: "row", paddingVertical: 8, paddingHorizontal: 10, borderBottomWidth: 1, borderBottomColor: "#afafafff" },
-  rowPressed: { backgroundColor: "#f5effa" },
-  headerRow: { backgroundColor: "#e0e0e0ea" },
+  cardHeading: { fontSize: 15, fontWeight: "700", color: "#5b2a86", marginBottom: 10 },
+  table: { borderRadius: 8, overflow: "hidden" },
+  tableHint: { fontSize: 11, color: "#999", marginTop: 10, textAlign: "center" },
+  row: { flexDirection: "row", paddingVertical: 8, paddingHorizontal: 10, borderBottomWidth: 1, borderBottomColor: "#e8def0" },
+  rowPressed: { backgroundColor: "#fff" },
+  headerRow: {},
   cell: { fontSize: 13 },
   headerCell: { fontWeight: "700", color: "#333" },
   dashaPlanetCell: { flex: 1 },
@@ -423,7 +427,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: "#b9b8b8ff",
+    borderBottomColor: "#e8def0",
   },
   antardashaPlanet: { fontSize: 13, fontWeight: "600" },
   antardashaDates: { fontSize: 12, color: "#5f5e5eff" },

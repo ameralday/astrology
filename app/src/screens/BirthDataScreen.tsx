@@ -144,7 +144,14 @@ export default function BirthDataScreen({ navigation }: Props) {
           </Text>
 
           <Text style={styles.label}>Name (optional)</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} placeholder="Name" />
+          <TextInput
+            style={styles.input}
+            value={name}
+            onChangeText={setName}
+            placeholder="Name"
+            placeholderTextColor="#000"
+            underlineColorAndroid="transparent"
+          />
 
           <Text style={styles.label}>Birth date</Text>
           <Pressable style={styles.input} onPress={openDatePicker}>
@@ -194,6 +201,8 @@ export default function BirthDataScreen({ navigation }: Props) {
             value={placeQuery}
             onChangeText={onPlaceQueryChange}
             placeholder="Start typing a city..."
+            placeholderTextColor="#000"
+            underlineColorAndroid="transparent"
           />
           <Text style={styles.attribution}>Place data © GeoNames.org, CC-BY 4.0</Text>
           {searching && <ActivityIndicator style={{ marginVertical: 8 }} />}
@@ -242,22 +251,22 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { padding: 20, paddingTop: 60, paddingBottom: 40 },
   title: { fontSize: 24, fontWeight: "700", marginBottom: 4 },
-  subtitle: { fontSize: 13, color: "#d8d4d4ff", marginBottom: 20 },
+  subtitle: { fontSize: 13, color: "#fcf9f9ef", marginBottom: 20 },
   label: { fontSize: 13, fontWeight: "600", color: "#333", marginTop: 12, marginBottom: 6 },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#727272ff",
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
-  iosPickerWrap: { backgroundColor: "#f7f7f7", borderRadius: 8, marginTop: 4, overflow: "hidden" },
+  iosPickerWrap: { backgroundColor: "#ebe3e3ff", borderRadius: 8, marginTop: 4, overflow: "hidden" },
   doneButton: { alignItems: "center", paddingVertical: 10, borderTopWidth: 1, borderTopColor: "#e2e2e2" },
   doneButtonText: { color: "#5b2a86", fontWeight: "700", fontSize: 15 },
-  attribution: { fontSize: 10, color: "#aaa", marginTop: 4 },
+  attribution: { fontSize: 10, color: "#444444ff", marginTop: 4 },
   resultsList: { borderWidth: 1, borderColor: "#eee", borderRadius: 8, marginTop: 4, overflow: "hidden" },
   resultRow: { padding: 10, borderBottomWidth: 1, borderBottomColor: "#eee" },
-  timezoneHint: { marginTop: 6, fontSize: 12, color: "#666" },
+  timezoneHint: { marginTop: 6, fontSize: 12, color: "#2e2e2eff" },
   error: { color: "#c00", marginTop: 12 },
   submitButton: {
     marginTop: 28,
@@ -267,5 +276,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   submitButtonDisabled: { opacity: 0.4 },
-  submitButtonText: { color: "#fff", fontSize: 16, fontWeight: "600" },
+  submitButtonText: { color: "#ffffffff", fontSize: 16, fontWeight: "600" },
 });
